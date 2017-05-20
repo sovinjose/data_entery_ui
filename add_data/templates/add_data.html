@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+    </div>
+
+      <div class="col-sm-9">
+          <h4><small>Add Data</small></h4>
+          <hr>
+          <form action="{% url 'post_data' %}" method="post">{% csrf_token %}
+            <div class="form-group">
+              <label for="formGroupExampleInput">Question</label>
+              {{question_form.text}}
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Type</label>
+              {{question_form.type}}
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Answer</label>
+              <div class="row">
+                
+                <div id="field">
+                    <div class="col-md-10">
+                      <input class="input form-control "  id="field1" name="answer0" type="text" placeholder="answer 1"/>
+                    </div>
+                    <div class="col-md-2">
+                      <button id="b1" class="btn add-more" type="button">+</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"> Add Data</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+    var next = 1;
+    $(".add-more").click(function(e){
+        e.preventDefault();
+        var addto = "#field" + next;
+        var addRemove = "#field" + (next);
+        next = next + 1;
+        var newIn = '<input class="input form-control" id="field' + next + '" name="answer' + next + '" type="text" placeholder="answer' + next + '">';
+        var newInput = $(newIn);
+        var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
+        var removeButton = $(removeBtn);
+        $(addto).after(newInput);
+        $(addRemove).after(removeButton);
+        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);  
+        
+            $('.remove-me').click(function(e){
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length-1);
+                var fieldID = "#field" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+            });
+    });
+    
+
+    
+});
+
+
+</script>
+<style type="text/css">
+  
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+
+
+</style>
+<footer class="container-fluid">
+  <p>Footer Text</p>
+</footer>
+
+</body>
+</html>
