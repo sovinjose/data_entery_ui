@@ -27,8 +27,7 @@ class AddDataToDb(View):
         context = {
             'question_form' : question_form,
         }
-        return render(request, 'add_data.html', context)
-
+        return redirect('/list')
 
 class ListData(View):
 
