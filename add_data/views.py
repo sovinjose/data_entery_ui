@@ -32,7 +32,6 @@ class AddDataToDb(View):
 class ListData(View):
 
     def get(self, request):
-        print request.META
         question = Question.objects.all()
         question_lis = []
         for ob in question:
