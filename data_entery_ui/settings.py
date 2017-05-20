@@ -81,6 +81,12 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'worktojob',
         'HOST': '104.199.102.4',   # Or an IP Address that your DB is hosted on,
+        'OPTIONS': {'ssl': {
+                            'ca': '%s/server-ca.pem' % BASE_DIR,
+                            'cert': '%s/client-cert.pem' % BASE_DIR,
+                            'key': '%s/client-key.pem' % BASE_DIR
+                          }
+                    }
         }
 }
 
