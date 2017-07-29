@@ -73,21 +73,29 @@ WSGI_APPLICATION = 'data_entery_ui.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'wtj',
-        'USER': 'root',
-        'PASSWORD': 'worktojob',
-        'HOST': '104.199.102.4',   # Or an IP Address that your DB is hosted on,
-        'OPTIONS': {'ssl': {
-                            'ca': '%s/server-ca.pem' % BASE_DIR,
-                            'cert': '%s/client-cert.pem' % BASE_DIR,
-                            'key': '%s/client-key.pem' % BASE_DIR
-                          }
-                    }
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql', 
+#        'NAME': 'wtj',
+#        'USER': 'root',
+#        'PASSWORD': 'worktojob',
+#        'HOST': '104.199.102.4', 
+#        'OPTIONS': {'ssl': {
+#                            'ca': '%s/server-ca.pem' % BASE_DIR,
+#                            'cert': '%s/client-cert.pem' % BASE_DIR,
+#                            'key': '%s/client-key.pem' % BASE_DIR
+#                          }
+#                    }
+#        }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

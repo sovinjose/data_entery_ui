@@ -2,8 +2,8 @@ import re
 import requests
 from django.shortcuts import render, redirect
 from django.views import View
-from .form import QuestionForm, AnswerForm
-from .models import Answer, Question
+from .form import QuestionForm, AnswerForm, TaskForm
+from .models import Answer, Question, Task, Membership
 
 
 class AddDataToDb(View):
@@ -28,6 +28,47 @@ class AddDataToDb(View):
             'question_form' : question_form,
         }
         return redirect('/list')
+
+
+class AddTaskToDb(View):
+
+    def get(self, request):
+        task_form = TaskForm()
+        context = {
+            'task_form' : task_form,
+        }
+        return render(request, 'task_data.html', context)
+
+    def post(self, request):
+
+        question_ids = request.POST.getlist('question')
+        task_name = request.POST.get('name')
+        if question_ids and task_name:
+            task_obj = Task.objects.create(name=task_name)
+            for question_id in question_ids:
+                q_obj = Question.objects.get(id=question_id)
+                m = Membership.objects.create(question=q_obj, task=task_obj)
+                m.save()
+        return redirect('/task/list')
+
+      
+
+class TaskListData(View):
+
+    def get(self, request):
+        t = Task.objects.all()
+        question_lis = []
+        for ob in t:
+            dic_obj = {
+                'question' : ob.name,
+                'answer_obj' : Membership.objects.filter(task=ob)
+            }
+            question_lis.append(dic_obj)
+        context = {
+            'question_lis' : question_lis,
+        }
+        return render(request, 'task_list_data.html', context)
+
 
 class ListData(View):
 

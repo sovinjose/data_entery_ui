@@ -22,7 +22,34 @@ class Question(models.Model):
 	created_by = models.CharField(max_length=100, null=True, blank=True, default="system")
 	created_at = models.DateTimeField(auto_now_add=True)
 
+	def __str__(self):
+		return self.text
+
+	class Meta:
+		db_table = 'question'
+
 
 class Answer(models.Model):
 	question = models.ForeignKey(Question)
 	answer = models.CharField(max_length=400)
+
+	class Meta:
+		db_table = 'answer'
+
+
+class Task(models.Model):
+    name = models.CharField(max_length=128)
+    question = models.ManyToManyField(Question, through='Membership')
+
+    class Meta:
+		db_table = 'task'
+
+
+class Membership(models.Model):
+    question = models.ForeignKey(Question)
+    task = models.ForeignKey(Task)
+    preference = models.CharField(max_length=100)
+
+
+    class Meta:
+		db_table = 'task_question'

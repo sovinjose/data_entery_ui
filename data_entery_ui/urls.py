@@ -15,13 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from add_data.views import AddDataToDb, ListData, GetMyIp
+from add_data.views import AddDataToDb, ListData, GetMyIp, AddTaskToDb, TaskListData
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', AddDataToDb.as_view(), name="post_data"),
     url(r'^list$', ListData.as_view(), name="list_data"),
     url(r'^knowmyip$', GetMyIp.as_view(), name="know_my_ip"),
+    url(r'^add/task$', AddTaskToDb.as_view(), name="add_task"),
+    url(r'^task/list$', TaskListData.as_view(), name="list_data"),
+
+
 
 
 ]

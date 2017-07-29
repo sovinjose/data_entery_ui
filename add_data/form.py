@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.forms import ModelForm
-from .models import Question, Answer
+from .models import Question, Answer, Task
 
 
 class QuestionForm(ModelForm):
@@ -27,3 +27,14 @@ class AnswerForm(ModelForm):
         self.fields['question'].widget.attrs.update({'class' : "form-control"})
         self.fields['answer'].widget.attrs.update({'class' : "form-control"})
 
+
+class TaskForm(ModelForm):
+
+    class Meta:
+        model = Task
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        self.fields['question'].widget.attrs.update({'class' : "form-control"})
+        self.fields['name'].widget.attrs.update({'class' : "form-control"})
