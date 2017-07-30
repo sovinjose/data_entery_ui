@@ -1,7 +1,7 @@
 import re
 from django import forms
 from django.forms import ModelForm
-from .models import Question, Answer, Task
+from .models import Question, Answer, Task, Aspiration, TaskAspirationMapping
 
 
 class QuestionForm(ModelForm):
@@ -37,4 +37,16 @@ class TaskForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(TaskForm, self).__init__(*args, **kwargs)
         self.fields['question'].widget.attrs.update({'class' : "form-control"})
+        self.fields['name'].widget.attrs.update({'class' : "form-control"})
+
+
+class AspirationForm(ModelForm):
+
+    class Meta:
+        model = Aspiration
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(AspirationForm, self).__init__(*args, **kwargs)
+        self.fields['task'].widget.attrs.update({'class' : "form-control"})
         self.fields['name'].widget.attrs.update({'class' : "form-control"})

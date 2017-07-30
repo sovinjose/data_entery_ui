@@ -41,6 +41,9 @@ class Task(models.Model):
     name = models.CharField(max_length=128)
     question = models.ManyToManyField(Question, through='Membership')
 
+    def __str__(self):
+		return self.name
+
     class Meta:
 		db_table = 'task'
 
@@ -53,3 +56,25 @@ class Membership(models.Model):
 
     class Meta:
 		db_table = 'task_question'
+
+
+class Aspiration(models.Model):
+    name = models.CharField(max_length=128)
+    task = models.ManyToManyField(Task, through='TaskAspirationMapping')
+
+    def __str__(self):
+		return self.name
+
+    class Meta:
+		db_table = 'Aspiration'
+
+
+class TaskAspirationMapping(models.Model):
+    aspiration = models.ForeignKey(Aspiration)
+    task = models.ForeignKey(Task)
+    preference = models.CharField(max_length=100)
+
+    class Meta:
+		db_table = 'TaskAspirationMapping'
+
+
