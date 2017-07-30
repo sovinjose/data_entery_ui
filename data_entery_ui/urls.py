@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from add_data.views import AddDataToDb, ListData, GetMyIp, AddTaskToDb, TaskListData
+from add_data.views import AddDataToDb, ListData, GetMyIp, AddTaskToDb, TaskListData, AddPreferenceView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^knowmyip$', GetMyIp.as_view(), name="know_my_ip"),
     url(r'^add/task$', AddTaskToDb.as_view(), name="add_task"),
     url(r'^task/list$', TaskListData.as_view(), name="list_data"),
+    url(r'^add/(?P<pk>\d+)/preference$', AddPreferenceView.as_view(), name="add_preferance"),
 
 
 

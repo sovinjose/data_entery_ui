@@ -49,19 +49,44 @@ class AddTaskToDb(View):
                 q_obj = Question.objects.get(id=question_id)
                 m = Membership.objects.create(question=q_obj, task=task_obj)
                 m.save()
+        return redirect('/add/%s/preference' % (task_obj.id))
+
+
+class AddPreferenceView(View):
+
+    def get(self, request, pk):
+        t = Task.objects.get(id=pk)
+        mem = Membership.objects.filter(task=t)
+        dic_obj = {
+                'id' : t.id,
+                'question' : t.name,
+                'answer_obj' : mem,
+                'l' : range(1,len(mem)+1)
+            }
+        return render(request, 'preference.html', dic_obj)
+
+    def post(self, request, pk):
+        d = request.POST.items()
+        for key, value in d:
+            if key !='csrfmiddlewaretoken':
+                mem = Membership.objects.get(id=key)
+                mem.preference = value
+                mem.save()
         return redirect('/task/list')
 
       
-
 class TaskListData(View):
 
     def get(self, request):
         t = Task.objects.all()
         question_lis = []
         for ob in t:
+            mem = Membership.objects.filter(task=ob)
             dic_obj = {
+                'id' : ob.id,
                 'question' : ob.name,
-                'answer_obj' : Membership.objects.filter(task=ob)
+                'answer_obj' : mem,
+                'l' : range(len(mem))
             }
             question_lis.append(dic_obj)
         context = {
