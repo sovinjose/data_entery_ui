@@ -32,6 +32,7 @@ class Question(models.Model):
 class Answer(models.Model):
 	question = models.ForeignKey(Question)
 	answer = models.CharField(max_length=400)
+	preference = models.CharField(max_length=100)
 
 	class Meta:
 		db_table = 'answer'

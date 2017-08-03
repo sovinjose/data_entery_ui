@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .form import QuestionForm, AnswerForm, TaskForm, AspirationForm
 from .models import Answer, Question, Task, Membership, Aspiration, TaskAspirationMapping
+from backup import s
 
 
 class AddDataToDb(View):
@@ -27,6 +28,32 @@ class AddDataToDb(View):
         context = {
             'question_form' : question_form,
         }
+        return redirect('/answer/%s/preference' % (q_obj.id))
+
+
+class AnswerPrefernce(View):
+
+    def get(self, request, q_id):
+        print ">>>>>>>>>>>>>>>>", q_id
+        que = Question.objects.get(id=q_id)
+        ans = Answer.objects.filter(question=que)
+        print ">>>>>>>>>>>>>>>>", que
+
+
+        context = {
+            'q' : que,
+            'ans' : ans,
+            'l' : range(1,len(ans)+1)
+        }
+        return render(request, 'answer_prefernce.html', context)
+
+    def post(self, request, q_id):
+        d = request.POST.items()
+        for key, value in d:
+            if key !='csrfmiddlewaretoken':
+                mem = Answer.objects.get(id=key)
+                mem.preference = value
+                mem.save()
         return redirect('/list')
 
 
@@ -179,6 +206,20 @@ class ListData(View):
             'question_lis' : question_lis,
         }
         return render(request, 'list_data.html', context)
+
+class TestView(View):
+
+    def get(self, request):
+
+        for q in s['question']:
+            a_lis = []
+            print q
+            asd = Question.objects.create(text=q['text'], type=q['type'], created_by=q['created_by'])
+            for a in s['answer']:
+                if q['id'] == a['question_id']:
+                    sdsaf = Answer.objects.create(question=asd, answer=a['answer'])
+                    a_lis.append(a)
+            print "aaaaaaaa",a
 
 
 class GetMyIp(View):
