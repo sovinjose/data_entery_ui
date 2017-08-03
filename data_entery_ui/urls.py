@@ -17,7 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from add_data.views import (AddDataToDb, ListData, GetMyIp, AddTaskToDb, 
                                 TaskListData, AddPreferenceView, AddAspirationListData,
-                                AddAspirationToDb, AddAspirationPreferenceView)
+                                AddAspirationToDb, AddAspirationPreferenceView, TestView,
+                                AnswerPrefernce)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r'^aspiration$', AddAspirationToDb.as_view(), name="Aspirations_data"),
     url(r'^aspiration/(?P<pk>\d+)/preference$', AddAspirationPreferenceView.as_view(), name="add_aspiration_preferance"),
     url(r'^aspiration/list$', AddAspirationListData.as_view(), name="aspiration_list_data"),
+    url(r'^test$', TestView.as_view(), name="test_data"),
+    url(r'^answer/(?P<q_id>\d+)/preference$', AnswerPrefernce.as_view(), name="answer_preferance"),
 
 
 
