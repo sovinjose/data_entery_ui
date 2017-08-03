@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED='3894cade-c300-11e6-8315-42010a840fcf:1-14550462';
+/*SET @@GLOBAL.GTID_PURGED='3894cade-c300-11e6-8315-42010a840fcf:1-14550462';*/
 
 --
 -- Current Database: `wtj`

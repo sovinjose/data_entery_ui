@@ -66,7 +66,7 @@ class Aspiration(models.Model):
 		return self.name
 
     class Meta:
-		db_table = 'Aspiration'
+		db_table = 'aspiration'
 
 
 class TaskAspirationMapping(models.Model):
@@ -75,6 +75,6 @@ class TaskAspirationMapping(models.Model):
     preference = models.CharField(max_length=100)
 
     class Meta:
-		db_table = 'TaskAspirationMapping'
+		db_table = 'aspiration_task'
 
 
