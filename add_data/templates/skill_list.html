@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="my-task">
 <head>
-  <title>Add Data</title>
+  <title>Skill List</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -53,40 +53,20 @@
         <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>    </div>
 
       <div class="col-sm-9">
-          <h4><small>Task List Data</small></h4>
+          <h4><small>Skill List Data</small></h4>
           <hr>
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Task</th>
-                <th>Questions</th>
+                <th>No.</th>
+                <th>Name</th>
               </tr>
             </thead>
             <tbody>
-            {% for obj in question_lis %}
+            {% for obj in skill_list %}
               <tr>
-                <td>{{obj.question}}</td>
-                <td>
-                <table class="table" style="margin: 0px;">
-                <thead>
-                  <tr>
-                    <th>Question</th>
-                    <th>preference</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for answer_obj in obj.answer_obj %}
-                  
-                    <tr>
-                      <td>{{answer_obj.question.text}}</td>
-                      <td>{{answer_obj.preference}}
-
-                      </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                </table>
-                </td>
+                <td>{{forloop.counter}}</td>
+                <td>{{obj.name}}</td>
               </tr>
             {% endfor %}
             </tbody>

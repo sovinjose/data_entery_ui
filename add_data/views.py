@@ -2,8 +2,8 @@ import re
 import requests
 from django.shortcuts import render, redirect
 from django.views import View
-from .form import QuestionForm, AnswerForm, TaskForm, AspirationForm
-from .models import Answer, Question, Task, Membership, Aspiration, TaskAspirationMapping
+from .form import QuestionForm, AnswerForm, TaskForm, AspirationForm, SkillForm
+from .models import Answer, Question, Task, Membership, Aspiration, TaskAspirationMapping, AspirationSkillMapping, Skill
 from backup import s
 
 
@@ -227,3 +227,94 @@ class GetMyIp(View):
     def get(self, request):
         text = requests.get('http://ipv4.whatismyv6.com/')
         return render(request, 'ip.html', {'text' : text.content})
+
+
+class SkillView(View):
+
+    def get(self, request):
+        skill_form = SkillForm()
+        return render(request, 'skill.html', {'skill_form' : skill_form})
+
+    def post(self, request):
+        skill_form = SkillForm(request.POST)
+        skill_form.save()
+        return redirect('/skill/list')
+
+
+class SkillListView(View):
+
+    def get(self, request):
+        skill_list = Skill.objects.all()
+        return render(request, 'skill_list.html', {'skill_list' : skill_list})
+
+
+class MapAspirationSkill(View):
+
+    def get(self, request):
+        aspiration = Aspiration.objects.all()
+        skill = Skill.objects.all()
+        context = {
+            'aspiration' : aspiration,
+            'skill' : skill
+        }
+        return render(request, 'aspiration_skill.html', context)
+
+    def post(self, request):
+        asp = request.POST.get('aspiration')
+        skill_list = request.POST.getlist('skill')
+        print 'skill_list', skill_list
+        asp_obj = Aspiration.objects.get(id=asp)
+        for lis in skill_list:
+            s_obj = Skill.objects.get(id=lis)
+            frm = AspirationSkillMapping.objects.create(aspiration=asp_obj, skill=s_obj)
+        return redirect('/skill/%s/prefernce' % asp_obj.id)
+
+
+class AddSkillPreferenceView(View):
+
+    def get(self, request, pk):
+        asp_obj = Aspiration.objects.get(id=pk)
+        mem = AspirationSkillMapping.objects.filter(aspiration=asp_obj)
+        dic_obj = {
+                'id' : asp_obj.id,
+                'name' : asp_obj.name,
+                'skill_obj' : mem,
+                'l' : range(1,len(mem)+1)
+            }
+        return render(request, 'skill_prefernce.html', dic_obj)
+
+    def post(self, request, pk):
+        d = request.POST.items()
+        for key, value in d:
+            if key !='csrfmiddlewaretoken':
+                mem = AspirationSkillMapping.objects.get(id=key)
+                mem.preference = value
+                mem.save()
+        return redirect('/skill/prefernce/list')
+
+
+class SkillPrefernceList(View):
+
+    def get(self, request):
+        t = Aspiration.objects.all()
+        question_lis = []
+        for ob in t:
+            mem = AspirationSkillMapping.objects.filter(aspiration=ob)
+            dic_obj = {
+                'id' : ob.id,
+                'question' : ob.name,
+                'answer_obj' : mem,
+                'l' : range(len(mem))
+            }
+            question_lis.append(dic_obj)
+        context = {
+            'question_lis' : question_lis,
+        }
+        return render(request, 'skill_prefernce_list.html', context)
+
+
+
+
+
+
+
