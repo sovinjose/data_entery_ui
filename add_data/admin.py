@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Answer, Task, Aspiration
+from .models import Question, Answer, Task, Aspiration, Notification
 
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('text', 'type', 'category','created_at')
@@ -35,3 +35,11 @@ class AspirationAdmin(admin.ModelAdmin):
     #def Task(self, obj):
     #    return obj.question.text
 admin.site.register(Aspiration, AspirationAdmin)
+
+
+class Notificationdmin(admin.ModelAdmin):
+    list_display = ('heading','description', 'url', 'task', 'created_at')
+    #def Task(self, obj):
+    #    return obj.question.text
+admin.site.register(Notification, Notificationdmin)
+

@@ -19,7 +19,7 @@ from add_data.views import (AddDataToDb, ListData, GetMyIp, AddTaskToDb,
                                 TaskListData, AddPreferenceView, AddAspirationListData,
                                 AddAspirationToDb, AddAspirationPreferenceView, TestView,
                                 AnswerPrefernce, SkillView, SkillListView, MapAspirationSkill,
-                                AddSkillPreferenceView, SkillPrefernceList)
+                                AddSkillPreferenceView, SkillPrefernceList, NotificationView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -39,6 +39,8 @@ urlpatterns = [
     url(r'^map/skill/aspiration$', MapAspirationSkill.as_view(), name="map_skill_aspiratio"),
     url(r'^skill/(?P<pk>\d+)/prefernce$', AddSkillPreferenceView.as_view(), name="skill_prefernce"),
     url(r'^skill/prefernce/list$', SkillPrefernceList.as_view(), name="skill_prefernce_list"),
+    url(r'^notification$', NotificationView.as_view(), name="notification_view"),
+
 
 
 

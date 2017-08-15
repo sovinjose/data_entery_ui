@@ -2,7 +2,7 @@ import re
 import requests
 from django.shortcuts import render, redirect
 from django.views import View
-from .form import QuestionForm, AnswerForm, TaskForm, AspirationForm, SkillForm
+from .form import QuestionForm, AnswerForm, TaskForm, AspirationForm, SkillForm, NotificationForm
 from .models import Answer, Question, Task, Membership, Aspiration, TaskAspirationMapping, AspirationSkillMapping, Skill
 #from backup import s
 
@@ -316,6 +316,26 @@ class SkillPrefernceList(View):
             'question_lis' : question_lis,
         }
         return render(request, 'skill_prefernce_list.html', context)
+
+
+class NotificationView(View):
+
+    def get(self, request):
+        not_form = NotificationForm()
+        context = {
+            'not_form' : not_form
+        }
+        return render(request, 'notification.html', context)
+
+
+    def post(self, request):
+        not_form = NotificationForm(request.POST)
+        if not_form.is_valid():
+            not_form.save()
+        return redirect('/notification')
+
+
+
 
 
 

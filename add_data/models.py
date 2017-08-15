@@ -99,3 +99,12 @@ class AspirationSkillMapping(models.Model):
         db_table = 'skill_aspiration'
 
 
+class Notification(models.Model):
+
+    heading = models.CharField(max_length=100, null=True, blank=True)
+    description = models.CharField(max_length=100, null=True, blank=True)
+    url = models.CharField(max_length=100, null=True, blank=True)
+    task = models.ForeignKey(Task)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
