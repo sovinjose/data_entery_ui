@@ -18,7 +18,8 @@ from django.contrib import admin
 from add_data.views import (AddDataToDb, ListData, GetMyIp, AddTaskToDb, 
                                 TaskListData, AddPreferenceView, AddAspirationListData,
                                 AddAspirationToDb, AddAspirationPreferenceView, TestView,
-                                AnswerPrefernce)
+                                AnswerPrefernce, SkillView, SkillListView, MapAspirationSkill,
+                                AddSkillPreferenceView, SkillPrefernceList)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,6 +34,16 @@ urlpatterns = [
     url(r'^aspiration/list$', AddAspirationListData.as_view(), name="aspiration_list_data"),
     url(r'^test$', TestView.as_view(), name="test_data"),
     url(r'^answer/(?P<q_id>\d+)/preference$', AnswerPrefernce.as_view(), name="answer_preferance"),
+    url(r'^skill$', SkillView.as_view(), name="add_skill_data"),
+    url(r'^skill/list$', SkillListView.as_view(), name="list_skill_data"),
+    url(r'^map/skill/aspiration$', MapAspirationSkill.as_view(), name="map_skill_aspiratio"),
+    url(r'^skill/(?P<pk>\d+)/prefernce$', AddSkillPreferenceView.as_view(), name="skill_prefernce"),
+    url(r'^skill/prefernce/list$', SkillPrefernceList.as_view(), name="skill_prefernce_list"),
+
+
+
+
+
 
 
 

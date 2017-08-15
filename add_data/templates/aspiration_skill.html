@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="my-task">
-<head>
-  <title>Add Data</title>
+<html lang="en">
+<head>{% load staticfiles %}
+  <title>Aspiration Skill Data</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <link href="{% static 'multi-select/css/multi-select.css' %}" media="screen" rel="stylesheet" type="text/css">
+  <script src="{% static 'multi-select/js/jquery.multi-select.js' %}" type="text/javascript"></script>
+
 
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
@@ -36,7 +38,7 @@
     }
   </style>
 </head>
-<body ng-controller="myTaskController">
+<body>
 
 <div class="container-fluid">
   <div class="row content">
@@ -53,76 +55,57 @@
         <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>    </div>
 
       <div class="col-sm-9">
-          <h4><small>Task List Data</small></h4>
+          <h4><small>Add Skill Aspiration Mapping</small></h4>
           <hr>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Task</th>
-                <th>Questions</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for obj in question_lis %}
-              <tr>
-                <td>{{obj.question}}</td>
-                <td>
-                <table class="table" style="margin: 0px;">
-                <thead>
-                  <tr>
-                    <th>Question</th>
-                    <th>preference</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for answer_obj in obj.answer_obj %}
-                  
-                    <tr>
-                      <td>{{answer_obj.question.text}}</td>
-                      <td>{{answer_obj.preference}}
-
-                      </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-                </table>
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
+          <form action="{% url 'map_skill_aspiratio' %}" method="post">{% csrf_token %}
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Aspiration</label>
+              <select class="form-control" id="id_aspiration" name="aspiration" required="">
+                  {% for obj in aspiration%}
+                  <option value="{{obj.id}}">{{obj.name}}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="formGroupExampleInput2">Skills</label>
+              <select multiple="multiple" class="form-control" id="id_question" name="skill" required="">
+                  {% for obj in skill%}
+                  <option value="{{obj.id}}">{{obj.name}}</option>
+                  {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary"> Add Data</button>
+            </div>
+          </form>
       </div>
     </div>
   </div>
 </div>
 
+<style type="text/css">
+  
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+.glyphicon
+{
+    font-size: 12px;
+}
+
+
+</style>
+
+<script type="text/javascript">
+  $('#id_question').multiSelect()
+</script>
+
 
 <footer class="container-fluid">
   <p>Footer Text</p>
 </footer>
-
-<script type="text/javascript">
-  
-    var myTask  = angular.module('my-task', []);
-
-
-    myTask.config(function($interpolateProvider) {
-      $interpolateProvider.startSymbol('{[{');
-      $interpolateProvider.endSymbol('}]}');
-    });
-
-
-    myTask.controller("myTaskController", function($scope, $http) {
-
-        $scope.post_preference_data = function(){
-
-
-        }
-
-
-    });
-
-</script>
 
 </body>
 </html>

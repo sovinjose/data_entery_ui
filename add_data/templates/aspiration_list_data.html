@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Add Data</title>
+  <title>Aspiration List</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -38,19 +38,27 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-2 sidenav">
+    <div class="col-sm-3 sidenav">
         <a href="/" class="btn btn-lg btn-info" style="margin-top:40%"> Add New Question</a>
         <a href="/add/task" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Task</a>
         <a href="/aspiration" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Aspiration</a>
-    </div>
+        <a href="/skill" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Skill</a>
+        
+        <a href="/task/list" class="btn btn-lg btn-info" style="margin-top:4%"> Task List</a>
+        <a href="/aspiration/list" class="btn btn-lg btn-info" style="margin-top:4%">Aspiration List</a>
+        <a href="/skill/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill List</a>
+        <a href="/map/skill/aspiration" class="btn btn-lg btn-info" style="margin-top:4%">Map Skill & Aspiration</a>
+        <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>    </div>
 
-      <div class="col-sm-10">
+      <div class="col-sm-9">
           <h4><small>Aspiration List Data</small></h4>
           <hr>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>Aspiration</th>
+		<th>Onet Code</th>
+		<th>SOC Code</th>
                 <th>Task</th>
               </tr>
             </thead>
@@ -58,8 +66,21 @@
             {% for obj in question_lis %}
               <tr>
                 <td>{{obj.question}}</td>
+                  <td>{{obj.onet_code}}</td>
+                 <td>{{obj.soc_code}}</td>
                 <td>
                 <table class="table" style="margin: 0px;">
+
+
+                <thead>
+                  <tr>
+                    <th>name</th>
+                    <th>prefernce</th>
+                  </tr>
+                </thead>
+
+
+
                 <tbody>
                 {% for answer_obj in obj.answer_obj %}
                   

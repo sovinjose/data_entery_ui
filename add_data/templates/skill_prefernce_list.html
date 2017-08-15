@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="my-task">
+<html lang="en">
 <head>
   <title>Add Data</title>
   <meta charset="utf-8">
@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
     .row.content {height: 1500px}
@@ -36,7 +34,7 @@
     }
   </style>
 </head>
-<body ng-controller="myTaskController">
+<body>
 
 <div class="container-fluid">
   <div class="row content">
@@ -50,16 +48,19 @@
         <a href="/aspiration/list" class="btn btn-lg btn-info" style="margin-top:4%">Aspiration List</a>
         <a href="/skill/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill List</a>
         <a href="/map/skill/aspiration" class="btn btn-lg btn-info" style="margin-top:4%">Map Skill & Aspiration</a>
-        <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>    </div>
+        <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>
+
+
+    </div>
 
       <div class="col-sm-9">
-          <h4><small>Task List Data</small></h4>
+          <h4><small>Aspiration & Skill List</small></h4>
           <hr>
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Task</th>
-                <th>Questions</th>
+                <th>Aspiration</th>
+                <th>Skill</th>
               </tr>
             </thead>
             <tbody>
@@ -68,17 +69,20 @@
                 <td>{{obj.question}}</td>
                 <td>
                 <table class="table" style="margin: 0px;">
+
+
                 <thead>
                   <tr>
-                    <th>Question</th>
-                    <th>preference</th>
+                    <th>name</th>
+                    <th>Prefernce</th>
                   </tr>
                 </thead>
+
                 <tbody>
                 {% for answer_obj in obj.answer_obj %}
                   
                     <tr>
-                      <td>{{answer_obj.question.text}}</td>
+                      <td>{{answer_obj.skill.name}}</td>
                       <td>{{answer_obj.preference}}
 
                       </td>
@@ -100,29 +104,6 @@
 <footer class="container-fluid">
   <p>Footer Text</p>
 </footer>
-
-<script type="text/javascript">
-  
-    var myTask  = angular.module('my-task', []);
-
-
-    myTask.config(function($interpolateProvider) {
-      $interpolateProvider.startSymbol('{[{');
-      $interpolateProvider.endSymbol('}]}');
-    });
-
-
-    myTask.controller("myTaskController", function($scope, $http) {
-
-        $scope.post_preference_data = function(){
-
-
-        }
-
-
-    });
-
-</script>
 
 </body>
 </html>

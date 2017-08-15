@@ -40,11 +40,19 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-2 sidenav">
-        <a href="{% url 'add_task' %}" class="btn btn-lg btn-info" style="margin-top:40%"> Add New Task</a>
-    </div>
+    <div class="col-sm-3 sidenav">
+        <a href="/" class="btn btn-lg btn-info" style="margin-top:40%"> Add New Question</a>
+        <a href="/add/task" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Task</a>
+        <a href="/aspiration" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Aspiration</a>
+        <a href="/skill" class="btn btn-lg btn-info" style="margin-top:4%"> Add New Skill</a>
+        
+        <a href="/task/list" class="btn btn-lg btn-info" style="margin-top:4%"> Task List</a>
+        <a href="/aspiration/list" class="btn btn-lg btn-info" style="margin-top:4%">Aspiration List</a>
+        <a href="/skill/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill List</a>
+        <a href="/map/skill/aspiration" class="btn btn-lg btn-info" style="margin-top:4%">Map Skill & Aspiration</a>
+        <a href="/skill/prefernce/list" class="btn btn-lg btn-info" style="margin-top:4%">Skill Prefernce List</a>    </div>
 
-      <div class="col-sm-10">
+      <div class="col-sm-9">
           <h4><small>List Data</small></h4>
           <hr>
                 <form action="{% url 'add_preferance' id  %}" method="post">{% csrf_token %}

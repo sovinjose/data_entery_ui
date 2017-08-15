@@ -76,7 +76,10 @@ WSGI_APPLICATION = 'data_entery_ui.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'wtj',
+        'OPTIONS': {
+               #'init_command': 'SET default_storage_engine=INNODB',
+        },		
+        'NAME': 'wtj1',
         'USER': 'root',
         'PASSWORD': 'worktojob',
         'HOST': 'localhost',
