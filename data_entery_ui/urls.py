@@ -23,6 +23,8 @@ from add_data.views import (AddDataToDb, ListData, GetMyIp, AddTaskToDb,
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login_page'),
+    url(r'^logout$', 'django.contrib.auth.views.logout_then_login', name='logout'),
     url(r'^$', AddDataToDb.as_view(), name="post_data"),
     url(r'^list$', ListData.as_view(), name="list_data"),
     url(r'^knowmyip$', GetMyIp.as_view(), name="know_my_ip"),
