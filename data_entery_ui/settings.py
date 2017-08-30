@@ -80,8 +80,8 @@ DATABASES = {
                #'init_command': 'SET default_storage_engine=INNODB',
         },		
         'NAME': 'wtj1',
-        'USER': 'root',
-        'PASSWORD': 'worktojob',
+        'USER': 'worktojob',
+        'PASSWORD': 'wtj@123',
         'HOST': 'localhost',
         'PORT': '',
     }

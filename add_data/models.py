@@ -61,15 +61,12 @@ class Membership(models.Model):
 
 
 class Aspiration(models.Model):
-    name = models.CharField(max_length=128)
+    sector = models.CharField(max_length=128)
     task = models.ManyToManyField(Task, through='TaskAspirationMapping')
     industry = models.CharField(max_length=100, null=True, blank=True)
     onet_code = models.CharField(max_length=100, null=True, blank=True)
     soc_code = models.CharField(max_length=100, null=True, blank=True)
 
-
-    def __str__(self):
-        return self.name
 
     class Meta:
 	db_table = 'aspiration'
@@ -106,5 +103,7 @@ class Notification(models.Model):
     url = models.CharField(max_length=100, null=True, blank=True)
     task = models.ForeignKey(Task)
     created_at = models.DateTimeField(auto_now_add=True)
-
+ 
+    class Meta:
+        db_table = 'notification'
 

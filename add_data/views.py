@@ -113,7 +113,7 @@ class AddAspirationListData(View):
             mem = TaskAspirationMapping.objects.filter(aspiration=ob)
             dic_obj = {
                 'id' : ob.id,
-                'question' : ob.name,
+                'question' : ob.sector,
 		'soc_code' : ob.soc_code,
 		'onet_code' : ob.onet_code,
                 'answer_obj' : mem,

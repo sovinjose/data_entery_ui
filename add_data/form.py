@@ -65,7 +65,7 @@ class AspirationForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(AspirationForm, self).__init__(*args, **kwargs)
         self.fields['task'].widget.attrs.update({'class' : "form-control"})
-        self.fields['name'].widget.attrs.update({'class' : "form-control"})
+        #self.fields['name'].widget.attrs.update({'class' : "form-control"})
 	self.fields['onet_code'].widget.attrs.update({'class' : "form-control"})
         self.fields['soc_code'].widget.attrs.update({'class' : "form-control"})
 

@@ -31,7 +31,8 @@ admin.site.register(Task, TaskAdmin)
 
 
 class AspirationAdmin(admin.ModelAdmin):
-    list_display = ('name','onet_code', 'soc_code')
+    pass
+    #list_display = ('onet_code', 'soc_code')
     #def Task(self, obj):
     #    return obj.question.text
 admin.site.register(Aspiration, AspirationAdmin)
